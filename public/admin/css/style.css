@@ -1,0 +1,88 @@
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Roots */
+:root
+{
+    /* Colors */
+    --body_color: 
+    --sidebar_color: rgba(255,255,255,.2);
+    --primary_color: #695cfe;
+    --primary-color-light: #f6f5ff;
+    --toggle-color: #ddd;
+    --text-color: #686767;
+    --text-secondery : #ddd;
+
+    /* Transition */
+    --tran-03: all 0.3s ease-in-out;
+    --tran-04: all 0.4s ease-in-out;
+    --tran-05: all 0.5s ease-in-out;
+
+    /* Font family */
+    --font: 'Poppins', sans-serif;
+
+    /* Blur */
+    --blur: blur(10px);
+}
+
+/* Common CSS */
+body
+{
+    font-family: 'Kalpurush', Arial, sans-serif !important;
+    /* font-family: 'Poppins', sans-serif; */
+    /* background: linear-gradient(to right, #004e92, #4f48a5e0); */
+
+    font-size: 18px;
+    font-weight: 400;
+}
+.img>img
+{
+    width: 100%;
+    display: inline-block;
+}
+h1,h2,h3,h4,h5,h6,p,span,a
+{
+    margin: 0;
+    padding: 0;
+}
+a
+{
+    text-decoration: none;
+    color: var(--text-color);
+}
+a:hover
+{
+    color: var(--primary_color);
+}
+ul, ol
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.font-eng
+{
+    font-family: var(--font) !important;
+}
+.select2-dropdown
+{
+    z-index: 9999999999999999999999;
+}
+
+.lockIcon
+{
+    position: absolute;
+    top: 52%; 
+    right: 3%;
+    cursor: pointer;
+    z-index: 99999999;
+}
+
+.modal-content
+{
+    overflow: auto !important;
+}

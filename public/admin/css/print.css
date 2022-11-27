@@ -1,0 +1,66 @@
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Common CSS */
+body
+{
+    font-family: 'Kalpurush', Arial, sans-serif !important;
+    /* font-family: 'Poppins', sans-serif; */
+    background: #fff;
+
+    font-size: 14px;
+    font-weight: 400;
+}
+.img>img
+{
+    width: 100%;
+    display: inline-block;
+}
+h1,h2,h3,h4,h5,h6,p,span,a
+{
+    margin: 0;
+    padding: 0;
+}
+a
+{
+    text-decoration: none;
+    color: var(--text-color);
+}
+a:hover
+{
+    color: var(--primary_color);
+}
+ul, ol
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Content CSS */
+
+#sheetHeader
+{
+    margin: 8px 0;
+}
+#sheetHeader h5
+{
+    font-size: 12px;
+}
+#sheetHeader h2
+{
+    font-size: 24px;
+}
+#sheetHeader h3
+{
+    font-size: 16px;
+}
+#sheetHeader h4
+{
+    font-size: 14px;
+}

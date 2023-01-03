@@ -14,26 +14,21 @@ use Illuminate\Http\Request;
 
 class PrintController extends Controller
 {
-    public function salesReport($daterange = '11/01/2022-11/24/2022', $officer_id = '3')
+    public function salesReport($daterange, $officer_id)
     {
         /**
          * Date Explod In two date
          */
-        $date = explode('-', $daterange);
-        $form_date = date("Y-m-d", strtotime($date['0']));
-        if (isset($date['1'])) {
-            $end_date = date("Y-m-d", strtotime($date['1']));
-        } else {
-            $end_date = date("Y-m-d", strtotime($date['0']));
-        }
+        $month = date("m", strtotime($daterange));
+        $year = date("Y", strtotime($daterange));
 
         $solds = cardSale::where('user_id', $officer_id)
-            ->whereBetween('created_at', [$form_date, Carbon::parse($end_date)->endofDay()])
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
             ->where('status', true)
             ->with('User')
             ->get();
 
-        // dd($solddateranges);
         $card_percentage = Setting::get(['card_percentage', 'name']);
         $user = User::find($officer_id);
 

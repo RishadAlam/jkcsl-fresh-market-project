@@ -11,6 +11,7 @@ use App\Models\category;
 use App\Models\serviceSale;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use Illuminate\Support\Facades\Auth;
 
 class SalesController extends Controller
 {
@@ -103,6 +104,9 @@ class SalesController extends Controller
         /**
          * Author Data Filter Query
          */
+        if (!Auth::user()->roles->first()->hasPermissionTo('ড্যাশবোর্ড অ্যাডমিন')) {
+            $query->where('user_id', Auth::user()->id);
+        }
         if (isset($request->officer_id)) {
             $query->where('user_id', $request->officer_id);
         }
@@ -455,6 +459,9 @@ class SalesController extends Controller
         /**
          * Author Data Filter Query
          */
+        if (!Auth::user()->roles->first()->hasPermissionTo('ড্যাশবোর্ড অ্যাডমিন')) {
+            $query->where('user_id', Auth::user()->id);
+        }
         if (isset($request->officer_id)) {
             $query->where('user_id', $request->officer_id);
         }

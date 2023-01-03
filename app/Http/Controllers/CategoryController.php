@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -25,6 +26,8 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = category::all();
+        $v = DB::statement('SELECT c.*, SUM(s.stock) AS stock FROM categories AS c LEFT JOIN stocks AS s ON s.category_id = c.id GROUP BY c.id');
+        dd($v);
         return view('backend.category.index', compact('categories'));
     }
 

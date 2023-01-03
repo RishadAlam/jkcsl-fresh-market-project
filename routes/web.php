@@ -183,7 +183,7 @@ Route::prefix('/accounts/calculations')->group(function () {
 });
 
 Route::prefix('/print')->group(function () {
-    Route::GET('/card/sales/report', [PrintController::class, 'salesReport'])->name('sales.report.print');
+    Route::GET('/card/sales/report/{daterange}/{officer_id}', [printController::class, 'salesReport'])->name('sales.report.print');
     Route::GET('/salary/report/{id}', [PrintController::class, 'salaryPrint'])->name('salary.print');
     Route::GET('/accounts/calculations/report/{month}', [PrintController::class, 'accCalculationsPrint'])->name('acc.calculations.print');
     Route::GET('/accounts/calculations/share/report/{month}', [PrintController::class, 'shareAccCalculationsPrint'])->name('acc.calculations.share.print');

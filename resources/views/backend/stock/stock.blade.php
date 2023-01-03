@@ -121,11 +121,11 @@
                 <span><i class='bx bxs-store'></i></span>
                 ক্যাটাগরি টেবিল
             </div>
-            <div class="card-body px-0">
+            <div class="card-body p-0">
                 <div class="row">
                     {{-- @dd($stocks) --}}
                     @forelse ($stocks as $row)
-                        <div class="col-lg-6 mb-5">
+                        <div class="col-lg-12 mb-5">
                             <div class="card">
                                 <div class="card-header">
                                     <strong>{{ $row->category_name }}</strong>
@@ -133,21 +133,27 @@
                                 <div class="card-body p-0 overflow-auto overflow-lg-unset">
                                     <table class="table table-striped table-hover table-bordered">
                                         <thead>
-                                            <th>#</th>
-                                            <th>নাম</th>
-                                            <th>বিস্তারিত</th>
-                                            <th>স্টক</th>
-                                            <th>প্রকৃত মূল্য</th>
-                                            <th>লভ্যাংশ</th>
-                                            <th>মোট</th>
+                                            <th style="width: 2%">#</th>
+                                            <th style="width: 15%">নাম</th>
+                                            <th style="width: 40%">বিস্তারিত</th>
+                                            <th style="width: 5%">স্টক</th>
+                                            <th style="width: 5%">প্রকৃত মূল্য</th>
+                                            <th style="width: 5%">মুনাফা</th>
+                                            <th style="width: 5%">বিক্রয় মূল্য</th>
+                                            <th style="width: 5%">স্টক মূল্য</th>
+                                            <th style="width: 5%">স্টক মুনাফা</th>
+                                            <th style="width: 5%">স্টক বিক্রয় মূল্য</th>
                                             @if (auth()->user()->can('স্টক ইডিট') ||
                                                 auth()->user()->can('স্টক ডিলিট'))
-                                                <th>একশন</th>
+                                                <th style="width: 8%">একশন</th>
                                             @endif
                                         </thead>
                                         <tbody>
                                             @php
                                                 $totalStock = 0;
+                                                $RealPrice = 0;
+                                                $profit = 0;
+                                                $totalsales = 0;
                                                 $totalStockPrice = 0;
                                                 $totalRealPrice = 0;
                                                 $totalprofit = 0;
@@ -160,6 +166,9 @@
                                                     <td>{{ $value->stock }}টি</td>
                                                     <td>৳{{ $value->real_price }}/-</td>
                                                     <td>৳{{ $value->profit }}/-</td>
+                                                    <td>৳{{ $value->total }}/-</td>
+                                                    <td>৳{{ $value->stock * $value->real_price }}/-</td>
+                                                    <td>৳{{ $value->stock * $value->profit }}/-</td>
                                                     <td>৳{{ $value->stock * ($value->real_price + $value->profit) }}/-</td>
                                                     @if (auth()->user()->can('স্টক ইডিট') ||
                                                         auth()->user()->can('স্টক ডিলিট'))
@@ -229,6 +238,9 @@
                                                 </tr>
                                                 @php
                                                     $totalStock += $value->stock;
+                                                    $RealPrice += $value->real_price;
+                                                    $profit += $value->profit;
+                                                    $totalsales += $value->total;
                                                     $totalStockPrice += $value->stock * ($value->real_price + $value->profit);
                                                     $totalRealPrice += $value->stock * $value->real_price;
                                                     $totalprofit += $value->stock * $value->profit;
@@ -243,6 +255,9 @@
                                             <tr>
                                                 <td colspan="3" class="text-end">সর্বমোটঃ</td>
                                                 <td>{{ $totalStock }}টি</td>
+                                                <td>৳{{ $RealPrice }}/-</td>
+                                                <td>৳{{ $profit }}/-</td>
+                                                <td>৳{{ $totalsales }}/-</td>
                                                 <td>৳{{ $totalRealPrice }}/-</td>
                                                 <td>৳{{ $totalprofit }}/-</td>
                                                 <td>৳{{ $totalStockPrice }}/-</td>
@@ -399,6 +414,25 @@
                 var realPrice = $("#real_price").val();
                 var profit = $("#profit").val();
                 var totalPrice = $("#total");
+                var total = parseInt(realPrice) + parseInt(profit);
+                totalPrice.val(total);
+            }
+
+            /**
+             * Update Total Price Calculation
+             */
+            $("#up_real_price").on("keyup", function() {
+                upTotal();
+            })
+
+            $("#up_profit").on("keyup", function() {
+                upTotal();
+            })
+
+            function upTotal() {
+                var realPrice = $("#up_real_price").val();
+                var profit = $("#up_profit").val();
+                var totalPrice = $("#up_total");
                 var total = parseInt(realPrice) + parseInt(profit);
                 totalPrice.val(total);
             }

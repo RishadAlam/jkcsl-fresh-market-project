@@ -107,17 +107,22 @@
                 })
             @endif
 
-            $('#officer_id').on('change', function() {
-                var officer_id = $('#officer_id').val()
-                var daterange = $('#daterange').val()
-                var btn = $('#printBtn')
-                // var url = "{{ url('print/card/sales/report/') }}" + daterange + officer_id
-                var url =
-                    "{{ url('print/card/sales/report', ['daterange' => '"+officer_id+"', 'officer_id' => '7']) }}"
-                console.log(url);
-                btn.css('display', 'inline-block')
-                // btn.attr('href', url)
-            })
+            function print() {
+                @if (isset(request()->officer_id))
+                    var officer_id = $('#officer_id').val()
+                    var daterange = $('#month').val()
+                    var btn = $('#printBtn')
+                    var url =
+                        "{{ Route('sales.report.print', ['daterange' => ':daterange', 'officer_id' => ':officer_id']) }}"
+                    url = url.replace(':daterange', daterange)
+                    url = url.replace(':officer_id', officer_id)
+                    console.log(url)
+                    console.log(daterange)
+                    btn.css('display', 'inline-block')
+                    btn.attr('href', url)
+                @endif
+            }
+            print()
         })
     </script>
 @endsection
